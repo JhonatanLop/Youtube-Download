@@ -1,6 +1,6 @@
 # Youtube-Download
 
-> Status: Em desenvolvimento
+> Status: Finalizado
 
 ## Apresentação
 Este é um script em python que baixa vídeos do youtube atravéz de um link.<br>
