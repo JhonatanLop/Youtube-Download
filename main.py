@@ -1,11 +1,12 @@
 from pytube import YouTube
+import os
 
 # Criando funções com o parâmetro "link"
 def DownloadVideo(link):
     video = YouTube(link)
     try:
         # escolhe a resolução
-        resolution = input("Qual baixa ou alta resolução? L (baixa)/ H (alta)")
+        resolution = input("Baixa ou alta resolução? L (baixa)/ H (alta)")
         # fromata a string pra letra minúscula
         resolution = resolution.lower()
         try:
@@ -29,8 +30,17 @@ def DownloadVideo(link):
 def DownloadAudio(link):
     audio = YouTube(link)
     try:
-        audio = audio.streams.get_audio_only("mp3")
-        audio.download()
+        # aplicando filtro para only_audio = True
+        audio = audio.streams.filter(only_audio=True).first()
+        # baixando arquivo.mp4
+        download_file = audio.download()
+        # copiando nome do arquivo.mp4
+        base, saida = os.path.splitext(download_file)
+    
+        # colando nome do arquivo em uma variável, só que agora com extensão.mp3
+        new_file = base + '.mp3'
+        # renomeando arquivo.mp4 para mp3, isso força a transformação pra um arquivo de áudio
+        os.rename(download_file,new_file)
     except:
         print("Erro, algo aconteceu. Verifique seu link!")
         
